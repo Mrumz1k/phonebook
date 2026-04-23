@@ -1,0 +1,59 @@
+contacts = []
+def add_contact():
+    name = input("Введите имя: ").strip()
+    phone = input("Введите номер: ").strip()
+    contacts.append ({"name": name, "phone": phone})
+    print("Контакт добавлен")
+
+def snow_contacts():
+    if not contacts:
+        print("Список контактов пуст")
+        return
+    for i, c in enumerate(contacts, 1):
+        print(i, c["name"], "-", c["phone"])
+
+def search_contact():
+    query = input("Введите имя для поиска: ").strip().lower()
+    found = False
+    for c in contacts:
+        name = c["name"].strip().lower()
+        if query in name:
+            print("Найден:", c["name"], "-", c["phone"])
+            found = True
+        if not found:
+            print("Контакт не найден")
+
+
+def delete_contact():
+    snow_contacts()
+    try:
+        index = int(input("Введите номер контакта для удаления: ")) - 1
+        remove = contacts.pop(index)
+        print(f"Удалён: {remove['name']}")
+    except:
+        print("Ошибка удаления")
+
+def menu():
+    while True:
+        print("\n--- Поиск контактов ---")
+        print("1. Добавить контакт")
+        print("2. Показать контакты")
+        print("3. Найти контакт")
+        print("4. Удалить контакт")
+        print("0. Выход")
+        choice = input("Введите номер действия: ").strip()
+        if choice == "1":
+            add_contact()
+        elif choice == "2":
+            snow_contacts()
+        elif choice == "3":
+            search_contact()
+        elif choice == "4":
+            delete_contact()
+        elif choice == "0":
+            print("Выход")
+            break
+        else:
+            print("Неверный ввод")
+if __name__ == "__main__":
+    menu()
